@@ -35,18 +35,42 @@ class App extends Component {
     });
   }
 
+  shuffleArray(array) {
+    var currentIndex = array.length, tempValue, randomIndex;
+
+    // While there remain elements to shuffle
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -=1;
+
+        // And swap with current element
+        tempValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = tempValue; 
+    }
+
+    return array;
+  };
+
   render() {
-    return (
+   return (
       <div className="App">
-        <header className="App-header">
+        <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">React Quiz</h1>
-        </header>
-        <p className="App-intro">
-          <Question content="What is your favourite food?" />
-        </p>
+          <h2>React Quiz</h2>
+        </div>
+        <Quiz
+          answer={this.state.answer}
+          answerOptions={this.state.answerOptions}
+          questionId={this.state.questionId}
+          question={this.state.question}
+          questionTotal={quizQuestions.length}
+          onAnswerSelected={this.handleAnswerSelected}
+        />
       </div>
-    );
+    )
   }
 }
 
